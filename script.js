@@ -1,15 +1,18 @@
-const sites = [
-    "https://tmr2.intelbras.com.br:8443/",
-    "https://tmr3.intelbras.com.br:8443/"
-];
-
+const sites = ["iframe1", "iframe2"];
 let indice = 0;
 let timer;
 
 function mudarSite() {
-    const siteFrame = document.getElementById('siteFrame');
-    siteFrame.src = sites[indice];
+    // Esconde todos os iframes
+    sites.forEach((siteId) => {
+        document.getElementById(siteId).classList.remove("active");
+    });
 
+    // Exibe apenas o iframe atual
+    const siteAtual = document.getElementById(sites[indice]);
+    siteAtual.classList.add("active");
+
+    // Atualiza o número do TMR no siteNumber sem manipular a visibilidade
     const siteNumber = document.getElementById('siteNumber');
     siteNumber.textContent = `TMR ${indice + 2}`;
 }
@@ -25,13 +28,19 @@ function anteriorSite() {
 }
 
 function iniciarTimer() {
-    timer = setInterval(proximoSite, 25000);
+    if (!timer) {
+        timer = setInterval(proximoSite, 25000);
+    }
+}
+
+function pararTimer() {
+    clearInterval(timer);
+    timer = null;
 }
 
 function toggleTimer() {
     if (timer) {
-        clearInterval(timer);
-        timer = null;
+        pararTimer();
     } else {
         iniciarTimer();
     }
@@ -41,5 +50,6 @@ document.getElementById('nextButton').onclick = proximoSite;
 document.getElementById('prevButton').onclick = anteriorSite;
 document.getElementById('toggleButton').onclick = toggleTimer;
 
+// Inicializa
 mudarSite();
 iniciarTimer();

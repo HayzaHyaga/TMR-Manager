@@ -3,16 +3,15 @@ let indice = 0;
 let timer;
 
 function mudarSite() {
-    // Esconde todos os iframes
-    sites.forEach((siteId) => {
-        document.getElementById(siteId).classList.remove("active");
-    });
-
-    // Exibe apenas o iframe atual
     const siteAtual = document.getElementById(sites[indice]);
-    siteAtual.classList.add("active");
+    
+    setTimeout(() => {
+        sites.forEach((siteId) => {
+            document.getElementById(siteId).classList.remove("active");
+        });
+        siteAtual.classList.add("active");
+    }, 10);
 
-    // Atualiza o número do TMR no siteNumber sem manipular a visibilidade
     const siteNumber = document.getElementById('siteNumber');
     siteNumber.textContent = `TMR ${indice + 2}`;
 }
@@ -50,6 +49,5 @@ document.getElementById('nextButton').onclick = proximoSite;
 document.getElementById('prevButton').onclick = anteriorSite;
 document.getElementById('toggleButton').onclick = toggleTimer;
 
-// Inicializa
 mudarSite();
 iniciarTimer();

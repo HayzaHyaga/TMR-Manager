@@ -1,4 +1,4 @@
-const sites = ["iframe1", "iframe2","iframe3"];
+const sites = ["iframe1", "iframe2", "iframe3"];
 let indice = 0;
 let timer;
 
